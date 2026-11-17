@@ -59,7 +59,9 @@ function SearchPage() {
 
   function apply(next: Partial<Filters>, resetPage = true) {
     const f = { ...draft, ...next, ...(resetPage ? { page: "" } : {}) };
-    router.push(`/vacancies${qs(f)}`);
+    const url = `/vacancies${qs(f)}`;
+    if (url === `/vacancies${qs(applied)}`) search.refetch();
+    else router.push(url);
   }
 
   const set = (k: keyof Filters) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setDraft({ ...draft, [k]: e.target.value });
