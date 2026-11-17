@@ -233,10 +233,11 @@ export default function ProfilePage() {
                   <Input value={e.position} onChange={(x) => updExp(i, { position: x.target.value })} maxLength={200} />
                 </Field>
                 <Field label="Начало">
-                  <Input value={e.start} onChange={(x) => updExp(i, { start: x.target.value })} placeholder="2021-03" />
+                  <Input value={e.start} onChange={(x) => updExp(i, { start: x.target.value })} placeholder="2021-03" maxLength={10} />
                 </Field>
                 <Field label="Окончание">
-                  <Input value={e.end} onChange={(x) => updExp(i, { end: x.target.value })} placeholder="по настоящее время" />
+                  <Input value={e.end} onChange={(x) => updExp(i, { end: x.target.value })} placeholder="2024-05" maxLength={10} />
+                  <p className="mt-1 text-xs text-slate-400">Оставьте пустым, если работаете сейчас</p>
                 </Field>
                 <Field label="Обязанности" className="sm:col-span-2">
                   <Textarea value={e.description} onChange={(x) => updExp(i, { description: x.target.value })} rows={2} />
