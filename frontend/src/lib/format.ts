@@ -15,13 +15,23 @@ export function salary(from: number | null, to: number | null, currency = "RUB")
 
 export function date(s: string | null | undefined, opts: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric" }) {
   if (!s) return "—";
-  const d = new Date(s);
+  const d = parseDate(s);
   return isNaN(d.getTime()) ? "—" : d.toLocaleDateString("ru-RU", opts);
+}
+
+function parseDate(s: string): Date {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  return m ? new Date(+m[1], +m[2] - 1, +m[3]) : new Date(s);
+}
+
+export function localToday(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
 export function relativeDate(s: string | null | undefined): string {
   if (!s) return "";
-  const days = Math.floor((Date.now() - new Date(s).getTime()) / 86_400_000);
+  const days = Math.floor((Date.now() - parseDate(s).getTime()) / 86_400_000);
   if (days <= 0) return "сегодня";
   if (days === 1) return "вчера";
   if (days < 7) return `${days} ${plural(days, "день", "дня", "дней")} назад`;
