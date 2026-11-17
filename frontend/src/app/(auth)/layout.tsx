@@ -17,7 +17,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   const { authed } = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (authed) router.replace(new URLSearchParams(location.search).get("next") || "/vacancies");
+    if (!authed) return;
+    const next = new URLSearchParams(location.search).get("next");
+    router.replace(next && /^\/(?![/\\])/.test(next) ? next : "/vacancies");
   }, [authed, router]);
 
   return (
