@@ -77,3 +77,4 @@ tests/               matching, адаптер «Работы России», API
 3. Добавьте его в `registry.build_providers()` и `DEFAULT_ENABLED`.
 4. Напишите тест на нормализацию с фикстурой ответа из официальной документации.
 # Jobly
+# Jobly
