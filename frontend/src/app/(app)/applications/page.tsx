@@ -9,7 +9,7 @@ import { ApplicationModal } from "@/components/application-modal";
 import { Badge, Button, Card, EmptyState, ErrorState, Field, Input, Modal, PageHeader, PageLoader, Select, Textarea } from "@/components/ui";
 import { api } from "@/lib/api";
 import { cn } from "@/lib/cn";
-import { STATUS, STATUS_ORDER, date } from "@/lib/format";
+import { STATUS, STATUS_ORDER, date, localToday as today } from "@/lib/format";
 import type { Application, ApplicationEvent, Status } from "@/lib/types";
 
 const BOARD: { title: string; statuses: Status[] }[] = [
@@ -29,7 +29,6 @@ function StatusBadge({ s }: { s: Status }) {
   );
 }
 
-const today = () => new Date().toISOString().slice(0, 10);
 
 function AppCard({ a, onOpen }: { a: Application; onOpen: () => void }) {
   const overdue = a.remind_at && a.remind_at <= today();
