@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16
+    environment: {POSTGRES_USER: jobly, POSTGRES_PASSWORD: jobly, POSTGRES_DB: jobly}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jobly"]
+      interval: 5s
+      retries: 10
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://jobly:jobly@db:5432/jobly
+    depends_on: {db: {condition: service_healthy}}
+    ports: ["8000:8000"]
+volumes:
+  pgdata:
