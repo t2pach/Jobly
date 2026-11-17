@@ -51,8 +51,8 @@ function SkillsInput({ value, onChange }: { value: string[]; onChange: (v: strin
   const [text, setText] = useState("");
   const add = () => {
     const parts = text.split(",").map((s) => s.trim()).filter(Boolean);
-    const lower = new Set(value.map((s) => s.toLowerCase()));
-    const fresh = parts.filter((p) => !lower.has(p.toLowerCase()));
+    const seen = new Set(value.map((s) => s.toLowerCase()));
+    const fresh = parts.filter((p) => !seen.has(p.toLowerCase()) && seen.add(p.toLowerCase()));
     if (fresh.length) onChange([...value, ...fresh]);
     setText("");
   };
