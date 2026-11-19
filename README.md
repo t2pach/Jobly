@@ -6,23 +6,29 @@
 
 Статус: рабочая основа (этапы 1–3 и часть 4–6 из раздела 24 ТЗ). Что не сделано и что нужно проверить: **docs/LIMITATIONS.md**.
 
-## Быстрый старт (локально)
+## Запуск одной командой
+
+Нужны [Python 3.10+](https://www.python.org/downloads/) и [Node.js 20+](https://nodejs.org/).
+Все команды выполняются в корне репозитория — папке `Jobly`, где лежат `run.py`, `app/` и `frontend/`.
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env            # для локальной работы можно поставить DATABASE_URL=sqlite:///./jobly.db
-alembic upgrade head
-uvicorn app.main:app --reload   # документация: http://localhost:8000/docs
-pytest                          # 18 тестов, внешняя сеть не нужна
+python run.py        # macOS/Linux: python3 run.py
 ```
+
+Скрипт сам создаст `.venv`, поставит зависимости бэкенда и фронтенда, создаст `.env` (SQLite, случайные секреты,
+спросит email администратора), применит миграции и запустит бэкенд и фронтенд. Откроется браузер с http://localhost:3000,
+документация API — http://localhost:8000/docs. Остановить: Ctrl+C. Повторные запуски быстрые: зависимости
+переустанавливаются только при изменении `requirements.txt` или `package-lock.json`, существующий `.env` не перезаписывается.
+
+Тесты бэкенда: `.venv/bin/pytest` (Windows: `.venv\Scripts\pytest`), 18 тестов, внешняя сеть не нужна.
 
 ## Docker
 
 ```bash
-cp .env.example .env            # задайте JWT_SECRET и SECRETS_KEY
-docker compose up --build
+docker compose up --build   # Postgres + API (:8000) + фронтенд (:3000)
 ```
+
+`.env` необязателен; для чего-то кроме локальной проверки создайте его из `.env.example` и задайте `JWT_SECRET` и `SECRETS_KEY`.
 
 ## Структура
 
