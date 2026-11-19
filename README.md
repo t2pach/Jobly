@@ -28,7 +28,7 @@ python run.py        # macOS/Linux: python3 run.py
 docker compose up --build   # Postgres + API (:8000) + фронтенд (:3000)
 ```
 
-`.env` необязателен; для чего-то кроме локальной проверки создайте его из `.env.example` и задайте `JWT_SECRET` и `SECRETS_KEY`.
+`.env` необязателен: без него используются небезопасные dev-секреты, поэтому порты открыты только на `127.0.0.1`. Для чего-то кроме локальной проверки создайте `.env` из `.env.example` и задайте `JWT_SECRET` и `SECRETS_KEY`.
 
 ## Структура
 
