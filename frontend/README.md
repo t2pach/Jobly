@@ -6,13 +6,11 @@
 
 ## Запуск
 
-```bash
-# 1. Бэкенд (из корня репозитория)
-uvicorn app.main:app --reload --port 8000
+Проще всего из корня репозитория: `python run.py` запускает бэкенд и фронтенд вместе (см. корневой README).
+Только фронтенд, если бэкенд уже запущен на :8000:
 
-# 2. Фронтенд
+```bash
 cd frontend
-cp .env.example .env.local   # при необходимости поменяйте JOBLY_API_URL
 npm install
 npm run dev                  # http://localhost:3000
 ```
